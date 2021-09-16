@@ -74,16 +74,16 @@ def erase():
     return print(answer)
 
 
-def all_done():
-    name_task = str(input('you completed all the tasks? n/y '))
-    if name_task == "n" or "menu":
-        answer = ''
-    elif name_task == "y" or "yes":
-        task = [task for task in taskes if task.startswith(name_task)][0]
-        index_task = taskes.index(task)
-        taskes[index_task] = f"{task} (done)"
-        answer = 'task complited'
-    return print(answer)
+# def all_done():
+#     name_task = str(input('you completed all the tasks? n/y '))
+#     if name_task == "n" or "menu":
+#         answer = ''
+#     elif name_task == "y" or "yes":
+#         task = [task for task in taskes if task.startswith(name_task)][0]
+#         index_task = taskes.index(task)
+#         taskes[index_task] = f"{task} (done)"
+#         answer = 'task complited'
+#     return print(answer)
 
 
 menu_list = {
@@ -93,7 +93,7 @@ menu_list = {
     '4': delete,
     '5': erase,
     '6': filter_task,
-    '7': all_done
+    # '7': all_done
 }
 
 while True:
