@@ -57,8 +57,7 @@ def delete():
 
 def filter_task():
     task_filter = str(input('what word to search for? '))
-    if task_filter in taskes:
-        out_filter = taskes(filter(task_filter, taskes))
+    out_filter = list(filter(lambda x: task_filter in x, taskes))
     return print("Result for your request: ", out_filter)
 
 
