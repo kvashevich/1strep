@@ -1,1 +1,7 @@
-/.idea
+.idea/
+.pytest_cache/
+.venv/
+pycache/
+venv/
+*.xml
+*.iml
