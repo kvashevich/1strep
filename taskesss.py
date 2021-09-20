@@ -5,7 +5,8 @@ menu = """
 4. Delete task
 5. Erase task
 6. Filter task
-7. EXit
+7. Mark all done
+8. Exit and save taskes
 \n """
 
 taskes = []
@@ -73,16 +74,16 @@ def erase():
     return print(answer)
 
 
-# def all_done():
-#     name_task = str(input('you completed all the tasks? n/y '))
-#     if name_task == "n" or "menu":
-#         answer = ''
-#     elif name_task == "y" or "yes":
-#         task = [task for task in taskes if task.startswith(name_task)][0]
-#         index_task = taskes.index(task)
-#         taskes[index_task] = f"{task} (done)"
-#         answer = 'task complited'
-#     return print(answer)
+def all_done():
+    name_task = str(input('you completed all the tasks? n/y '))
+    answer = ''
+    if name_task == "n" or name_task == "menu":
+        pass
+    elif name_task == "y":
+        for i in range(len(taskes)):
+            taskes[i] += ' (done)'
+            answer = 'task complited'
+    return print(answer)
 
 
 menu_list = {
@@ -92,13 +93,22 @@ menu_list = {
     '4': delete,
     '5': erase,
     '6': filter_task,
-    # '7': all_done
+    '7': all_done
 }
 
 while True:
+    if not taskes:
+        with open('text.txt') as file_task:
+            for task in file_task.readlines():
+                taskes.append(task.strip())
     print(menu)
     ent = input()
-    if ent == "7":
+    if ent == "8":
+        with open('text.txt', 'w') as file_taskes:
+            filetask = ''
+            for task in taskes:
+                filetask += f'{task}\n'
+            file_taskes.write(filetask)
         print('end.')
         break
     menu_list[ent]()

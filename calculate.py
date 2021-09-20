@@ -1,5 +1,5 @@
 answer = True
-while answer is True:
+while answer:
     while True:
         try:
             first_number = float(input("Enter first number --> "))
