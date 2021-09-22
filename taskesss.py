@@ -41,7 +41,7 @@ def add():
         count = len(taskes)
         taskes.append(f"{count + 1}.{name_task} - {time_task}")
         answer = 'task adds!'
-    return print(answer)
+    return answer
 
 
 @ask_continue
@@ -56,7 +56,7 @@ def edit():
         time_task = str(input('new time: '))
         taskes[index_task] = f"{task.split('.')[0]}.{etask} - {time_task}"
         answer = 'task edited!'
-    return print(answer)
+    return answer
 
 
 @ask_continue
@@ -69,7 +69,7 @@ def delete():
         index_task = taskes.index(task)
         taskes.pop(index_task)
         answer = 'Task deleted!'
-    return print(answer)
+    return answer
 
 
 @ask_continue
@@ -89,7 +89,7 @@ def erase():
         index_task = taskes.index(task)
         taskes[index_task] = f"{task} (done)"
         answer = 'task complited'
-    return print(answer)
+    return answer
 
 
 @ask_continue
@@ -102,7 +102,7 @@ def all_done():
         for i in range(len(taskes)):
             taskes[i] += ' (done)'
             answer = 'task complited'
-    return print(answer)
+    return answer
 
 
 def exit_end():
