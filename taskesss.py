@@ -12,10 +12,24 @@ menu = """
 taskes = []
 
 
+def ask_continue(func):
+    def wrapper(*args, **kwargs):
+        func()
+        ask_con = input('Do you want did again?(y/n) ')
+        while True:
+            if ask_con == 'y':
+                wrapper()
+            else:
+                return ''
+
+    return wrapper
+
+
 def check():
     return print(*taskes)
 
 
+@ask_continue
 def add():
     name_task = str(input('What do you want to do? '))
     if name_task == 'menu':
@@ -27,9 +41,10 @@ def add():
         count = len(taskes)
         taskes.append(f"{count + 1}.{name_task} - {time_task}")
         answer = 'task adds!'
-    return print(answer)
+    return answer
 
 
+@ask_continue
 def edit():
     name_task = str(input('which task to edit? '))
     if name_task == "menu":
@@ -41,9 +56,10 @@ def edit():
         time_task = str(input('new time: '))
         taskes[index_task] = f"{task.split('.')[0]}.{etask} - {time_task}"
         answer = 'task edited!'
-    return print(answer)
+    return answer
 
 
+@ask_continue
 def delete():
     name_task = str(input('which task to delete? '))
     if name_task == "menu":
@@ -53,15 +69,17 @@ def delete():
         index_task = taskes.index(task)
         taskes.pop(index_task)
         answer = 'Task deleted!'
-    return print(answer)
+    return answer
 
 
+@ask_continue
 def filter_task():
     task_filter = str(input('what word to search for? '))
     out_filter = list(filter(lambda x: task_filter in x, taskes))
     return print("Result for your request: ", out_filter)
 
 
+@ask_continue
 def erase():
     name_task = str(input('which task is done? '))
     if name_task == "menu":
@@ -71,9 +89,10 @@ def erase():
         index_task = taskes.index(task)
         taskes[index_task] = f"{task} (done)"
         answer = 'task complited'
-    return print(answer)
+    return answer
 
 
+@ask_continue
 def all_done():
     name_task = str(input('you completed all the tasks? n/y '))
     answer = ''
@@ -83,7 +102,19 @@ def all_done():
         for i in range(len(taskes)):
             taskes[i] += ' (done)'
             answer = 'task complited'
-    return print(answer)
+    return answer
+
+
+def exit_end():
+    answer = input('Do you want save new task? ')
+    if answer == "ss":
+        with open('taski.txt', 'w') as file_taskes:
+            filetask = ''
+        for task in taskes:
+            filetask += f'{task}\n'
+            file_taskes.write(filetask)
+            print('end.')
+            break
 
 
 menu_list = {
@@ -93,22 +124,15 @@ menu_list = {
     '4': delete,
     '5': erase,
     '6': filter_task,
-    '7': all_done
+    '7': all_done,
+    '8': exit_end,
 }
 
 while True:
     if not taskes:
-        with open('text.txt') as file_task:
+        with open('taski.txt') as file_task:
             for task in file_task.readlines():
                 taskes.append(task.strip())
     print(menu)
-    ent = input()
-    if ent == "8":
-        with open('text.txt', 'w') as file_taskes:
-            filetask = ''
-            for task in taskes:
-                filetask += f'{task}\n'
-            file_taskes.write(filetask)
-        print('end.')
-        break
+    ent = input('Do you want did? ')
     menu_list[ent]()
